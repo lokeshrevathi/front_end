@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <script src = "reg_form.js"></script>
+  </head>
+  <body>
+    <h2><b><i>Registration Form</i></b></h2>
+    <table>
+      <form onsubmit = "return displayValues()">
+        <tr><td>First name :</td><td><input type = "text" id = "firstName" name = "firstName" pattern = "^[a-zA-Z]{2,15}([ ]?[a-zA-Z]{0,15}){0,}$" placeholder = "Enter your first name" required></td></tr>
+        <tr><td>Last name :</td><td><input type = "text" id = "lastName" name = "lastName" pattern = "^[a-zA-Z]{1,15}([ ]?[a-zA-Z]{0,15}){0,}$" placeholder = "Enter your last name" required></td></tr>
+        <tr><td>Date of birth :</td><td><input type = "date" id = "dob" name = "dob" required></td></tr>
+        <tr><td>Phone no :</td><td><input type = "tel" id = "phoneNo" name = "phoneNo" pattern = "^[6-9]{1}[0-9]{9}$" placeholder = "Enter your phone number" required></td></tr>
+        <tr><td>Mail id :</td><td><input type = "email" id = "mailId" name = "mailId" placeholder = "Enter your mail id" required></td></tr>
+        <tr>
+          <td>Gender :</td>
+          <td aria-required = "true">
+            <input type="radio" name = "gender" value = "male" required>
+            <label for = "male">Male</label>
+            <input type="radio" name = "gender" value = "female">
+            <label for = "female">Female</label>
+            <input type="radio" name = "gender" value = "others">
+            <label for = "others">Others</label>
+          </td>
+        </tr>
+        <tr>
+          <td>Skills :</td>
+          <td>
+            <input type="checkbox" name = "skill" value = "java" id = "java">
+            <label for = "male">Java</label>
+            <input type="checkbox" name = "skill" value = "python" id = "python">
+            <label for = "female">Python</label>
+            <input type="checkbox" name = "skill" value = "c/c++" id = "c/c++">
+            <label for = "others">C/C++</label>
+            <input type="checkbox" name = "skill" value = "others" id = "others">
+            <label for = "others">Others</label>
+          </td>
+        </tr>
+        <tr>
+          <td>Qualification :</td>
+          <td>
+            <select id = "qualification">
+              <option disabled selected>Enter qualification</option>
+              <option value = "B.E/B.tech">B.E/B.tech</option>
+              <option value = "B.A">B.A</option>
+              <option value = "B.sc">B.sc</option>
+              <option value = "BCA">BCA</option>
+            </select>
+          </td>
+        </tr>
+        <tr><td><button type = "submit">submit</button>
+      </form>
+    </table>
+  </body>
+</html>
