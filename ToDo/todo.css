@@ -1,0 +1,46 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+.menu-bar {
+    background-color: rgb(39 82 203);
+    height: 8%;
+}
+.menu-bar-one {
+    height: 100%;
+    width: 4%;
+}
+.apps {
+    color: white;
+    position: relative;
+    left: -4%;
+    top: 3%;
+}
+.menu-bar-button:hover {
+    background-color: rgb(41, 76, 172);
+    cursor: pointer;
+}
+.menu-bar-button {
+    border: none;
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+}
+.todo-button {
+    border: none;
+    background-color: transparent;
+    margin: -2% 0% 0% 0%;
+    position: relative;
+    top: -65%;
+    left: 4.2%;
+}
+.todo {
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 1.1em;
+    color: white;
+}
+.todo-button:hover {
+    text-decoration: underline;
+    text-decoration-color: white;
+}
