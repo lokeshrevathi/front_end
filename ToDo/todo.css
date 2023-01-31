@@ -1,6 +1,7 @@
 html, body {
     height: 100%;
     margin: 0;
+    background-color: #f6f6f6;
 }
 .menu-bar {
     background-color: rgb(39 82 203);
@@ -30,9 +31,10 @@ html, body {
     border: none;
     background-color: transparent;
     margin: -2% 0% 0% 0%;
-    position: relative;
-    top: -65%;
+    position: absolute;
+    top: 4%;
     left: 4.2%;
+    height: 8.2%;
 }
 .todo {
     font-family: 'Poppins';
@@ -43,4 +45,68 @@ html, body {
 .todo-button:hover {
     text-decoration: underline;
     text-decoration-color: white;
+    cursor: pointer;
+}
+.search-bar {
+    background-color: white;
+    border: none;
+    position: absolute;
+    top: 1.3%;
+    left: 31.2%;
+    height: 5.3%;
+    width: 31.3%;
+    border-radius: 5px;
+}
+.search-icon {
+    transform: rotate(90deg);
+    color: rgb(39 82 203);
+    position: absolute;
+    left: 31.5%;
+    top: 2.2%;
+}
+.search-bar:hover {
+    height: 5.7%;
+    width: 31.5%;
+    position: absolute;
+    top: 1.35%;
+    left: 31.1%;
+    transform: scale(1.001);
+    background-color: whitesmoke;
+    cursor: pointer;
+}
+.left-division {
+    background-color: white;
+    height: 92%;
+    width: 22.6%;
+    box-shadow: 2px 2px 5px -2px #e7e7e7;
+}
+.main-division {
+    border: none;
+    background-color: white;
+    height: 8%;
+    width: 68%;
+    position: absolute;
+    left: 24.3%;
+    top: 28%;
+    box-shadow: 0px 1px 1px 1px #e7e7e7;
+    border-radius: 5px 0px 0px 5px;
+}
+.text-box-one {
+    height: 60%;
+    width: 92.4%;
+    margin: 0.9% 0% 0% 5%;
+    padding: 0.3% 0% 0% 1%;
+    border: none;
+}
+.add-task {
+    position: absolute;
+    left: 92.3%;
+    top: 28%;
+    border-radius: 0px 5px 5px 0px;
+    box-shadow: 0px 1px 1px 1px #e7e7e7;
+    height: 8%;
+    width: 6%;
+    border: none;
+    background-color: rgb(39 82 203);
+    color: white;
 }
