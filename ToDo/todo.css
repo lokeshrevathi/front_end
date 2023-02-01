@@ -81,32 +81,104 @@ html, body {
     box-shadow: 2px 2px 5px -2px #e7e7e7;
 }
 .main-division {
-    border: none;
     background-color: white;
     height: 8%;
-    width: 68%;
+    width: 74%;
     position: absolute;
     left: 24.3%;
     top: 28%;
     box-shadow: 0px 1px 1px 1px #e7e7e7;
-    border-radius: 5px 0px 0px 5px;
+    border-radius: 5px;
 }
 .text-box-one {
-    height: 60%;
-    width: 92.4%;
-    margin: 0.9% 0% 0% 5%;
-    padding: 0.3% 0% 0% 1%;
+    height: 72%;
+    width: 96.5%;
     border: none;
+    margin: 0.9% 0% 0% 0%;
+    padding: 0% 0% 0% 1.5%;
 }
 .add-task {
-    position: absolute;
-    left: 92.3%;
-    top: 28%;
-    border-radius: 0px 5px 5px 0px;
-    box-shadow: 0px 1px 1px 1px #e7e7e7;
-    height: 8%;
-    width: 6%;
-    border: none;
+    display: inline-block;
+    width: 6.5%;
     background-color: rgb(39 82 203);
     color: white;
+    margin: 0% 0% 0% -0.4%;
+    border-radius: 0px 5px 5px 0px;
+    cursor: pointer;
+    position: relative;
+    top: -4%;
+}
+.add-center {
+    position: relative;
+    left: 23%;
+}
+.task-height {
+    height: 100%;
+}
+.task-left-side {
+    display: inline-block;
+    /* background-color: rgb(117, 109, 109); */
+    width: 5%;
+    position: relative;
+}
+.task-right-side {
+    position: relative;
+    top: -6%;
+    display: inline-block;
+    /* background-color: aqua; */
+    width: 88%;
+    margin: 0% 0% 0% 0%;
+}
+.circle-checkbox {
+    padding: 38% 0% 0% 52%;
+}
+.added-tasks-container {
+    /* background-color: aqua; */
+    height: 55%;
+    width: 74%;
+    margin: -29% 0% 0% 24.3%;
+    overflow: auto;
+}
+.added-task {
+    background-color: white;
+    height: 15.3%;
+    width: 100%;
+    margin: 1% 0% 0% 0%;
+    box-shadow: 0px 1px 1px 1px #e7e7e7;
+    border-radius: 5px 5px 5px 5px;
+}
+.task-value-align {
+    position: relative;
+    left: 1.5%;
+}
+.task-left-side-sub {
+    display: inline-block;
+    /* background-color: rgb(117, 109, 109); */
+    width: 5%;
+    /* position: relative;
+    top: -38%; */
+}
+.task-right-side-sub {
+    position: relative;
+    top: -4%;
+    display: inline-block;
+    /* background-color: aqua; */
+    width: 88%;
+    margin: 0% 0% 0% 0%;
+}
+.add-task-sub {
+    display: inline-block;
+    width: 6.5%;
+    background-color: rgb(39 82 203);
+    color: white;
+    margin: 0% 0% 0% 0.45%;
+    border-radius: 0px 5px 5px 0px;
+    cursor: pointer;
+    position: relative;
+    top: -35%;
+}   
+.trash-align {
+    position: relative;
+    top: 32%;
+    left: 38%;
 }

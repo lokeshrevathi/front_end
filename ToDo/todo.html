@@ -8,6 +8,13 @@
     <link rel="apple-touch-icon" sizes="167x167" href="https://res-1.cdn.office.net/todo/778986_2.88.1/touch-icon-167x167.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+            integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"/>
+    <!-- <script src = "todo.js"></script> -->
     <title>Document</title>
 </head>
 <body>
@@ -27,8 +34,17 @@
     </div>
     <div class = "left-division"></div>
     <div class = "main-division">
-        <input  class = "text-box-one" type="text" placeholder = "Add a task">
+        <div class = "task-height task-left-side">
+            <i class="fa fa-circle-thin circle-checkbox" aria-hidden="true"></i>
+        </div>
+        <div class = "task-height task-right-side">
+            <input id = "task-value" class = "text-box-one" type="text" placeholder = "Add a task">
+        </div>
+        <div class = "task-height add-task" onclick = "addTask()"><p class = "add-center">Add</p></div>
     </div>
-    <button class = "add-task" onclick = "addTask()">Add</button>
+    <div id = "container" class = "added-tasks-container">
+
+    </div>
+    <script src = "todo.js"></script>
 </body>
 </html>
