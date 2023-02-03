@@ -155,7 +155,7 @@ html, body {
     /* background-color: aqua; */
     max-height: 27%;
     width: 74%;
-    margin: -29% 0% 0% 24.3%;
+    margin: -30% 0% 0% 24.3%;
     overflow: auto;
 }
 .added-tasks-container-two {
@@ -163,7 +163,7 @@ html, body {
     max-height: 27%;
     /* height: 4%; */
     width: 74%;
-    margin: 1% 0% 0% 24.3%;
+    margin: 0.3% 0% 0% 24.3%;
     overflow: auto;
 }
 .completed-task-container {
@@ -223,4 +223,66 @@ html, body {
     font-size: 58%;
     color: rgb(39 82 203);
     margin: 0% 0% 0% 11%;
+}
+.added-tasks-container-middle {
+    /* background-color: aqua; */
+    height: 4%;
+    width: 11%;
+    margin: 0.3% 0% 0% 24.3%;
+}
+.completed {
+    font-family: 'Poppins', sans-serif;
+}
+.mid-left-side {
+    /* background-color: blue; */
+    height: 100%;
+    width: 17%;
+    display: inline-block;
+    /* position: relative;
+    top: -23%; */
+}
+.mid-left-side i {
+    margin: 3% 0% 0% 20%;
+    font-size: 1.3em;
+}
+.mid-div {
+    /* background-color: brown; */
+    height: 100%;
+    width: 65%;
+    display: inline-block;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    top: -1.85em;
+}
+.mid-right-side {
+    /* background-color: bisque; */
+    height: 67%;
+    width: 18%;
+    display: inline-block;
+    position: relative;
+    top: -1.85em;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+.mid-left-side input {
+    position: relative;
+    top: -92%;
+    left: 0%;
+    margin: 0%;
+    height: 100%;
+    width: 101%;
+    appearance: none;
+    outline: none;
+}
+.hide-element {
+    contain: content;
+    max-height: 0%;
+}
+.show-element {
+    /* background-color: aqua; */
+    max-height: 27%;
+    /* height: 4%; */
+    width: 74%;
+    margin: 0.3% 0% 0% 24.3%;
+    overflow: auto;
 }
