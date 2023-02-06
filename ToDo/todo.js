@@ -1,9 +1,95 @@
+let toggleIcon;
 document.getElementById("task-value").addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
         addTask();
     }
 });
+function eventListeners(element) {
+    element.addEventListener('click', function() {
+        editFunc(element);
+    });
+}
+function removeEventListeners(element) {
+    element.removeEventListener('click', function() {
+        editTask(element);
+    });
+}
+// function editTask(element) {
+//     // let element = document.getElementById("edit-task-div");
+//     count++;
+//     if (count % 2 != 0) {
+//         editFunc(element);
+//     } else {
+//         saveFunc(element);
+//     }
+// }
+function editFunc(element) {
+    let editDiv = element.parentNode;
+    if (toggleIcon == "onEdit") {
+        alert("Please save the task....!");
+        console.log(editDiv.previousSibling.childNodes[0]);
+        return false;
+    }
+    toggleIcon = "onEdit";
+    console.log(element.parentNode.parentNode);
+    let saveIcon = document.createElement("i");
+    editDiv.previousSibling.childNodes[0].disabled = false;
+    saveIcon.className = "fa fa-floppy-o trash-align";
+    editDiv.removeChild(editDiv.childNodes[0]);
+    editDiv.appendChild(saveIcon);
+    editDiv.previousSibling.childNodes[0].focus();
+    saveIcon.addEventListener('click', function() {
+        saveFunc(saveIcon);
+    });
+}
+function saveFunc(element) {
+    toggleIcon = "onSave";
+    let editDiv = element.parentNode;
+    let editIcon = document.createElement("i");
+    let editedTaskElement = editDiv.previousSibling.childNodes[0];
+    if (editedTaskElement.value == "") {
+        alert("please enter task....!");
+        count--;
+        editDiv.previousSibling.childNodes[0].focus();
+        return false;
+    }
+    editedTaskElement.disabled = "true";
+    editIcon.className = "fa fa-pencil trash-align";
+    editDiv.removeChild(editDiv.childNodes[0]);
+    editDiv.appendChild(editIcon);
+    eventListeners(editIcon);
+}
+function customPopup(value) {
+    let boolean;
+    let popupDiv = document.createElement("div");
+    popupDiv.className = "popup";
+    let popupMessage = document.createElement("div");
+    popupMessage.className = "popup-message";
+    popupMessage.innerText = value;
+    let bottomDiv = document.createElement("div");
+    bottomDiv.className = "bottom-div";
+    let okButtonDiv = document.createElement("div");
+    okButtonDiv.className = "ok-button-div";
+    let cancelButtonDiv = document.createElement("div");
+    cancelButtonDiv.className = "cancel-button-div";
+    let okButton = document.createElement("button");
+    okButton.innerText = "ok";
+    okButton.className = "ok-button";
+    let cancelButton = document.createElement("button");
+    cancelButton.innerText = "cancel";
+    cancelButton.className = "cancel-button";
+    okButtonDiv.appendChild(okButton);
+    cancelButtonDiv.appendChild(cancelButton);
+    bottomDiv.appendChild(okButtonDiv);
+    bottomDiv.appendChild(cancelButtonDiv);
+    popupDiv.appendChild(popupMessage);
+    popupDiv.appendChild(bottomDiv);
+    document.body.appendChild(popupDiv);
+}
 function removeTask(element) {
+    if (customPopup("Did you want to delete the task....!")) {
+        return false;
+    }
     element.parentNode.parentNode.removeChild(element.parentNode);
     removeMidChild();
 }
@@ -54,8 +140,16 @@ function removeMidChild() {
     document.getElementById("mid-right-side").innerText = completedElementCount;
 }
 function completed(element) {
+    if (toggleIcon == "onEdit") {
+        alert("Please save the task....!");
+        element.checked = false;
+        return false;
+    }
     let elementContainer = element.parentNode.parentNode;
     let elementDiv = element.parentNode;
+    // elementContainer.childNodes[2].className = "edit-task-hide";
+    elementContainer.childNodes[2].removeChild(elementContainer.childNodes[2].childNodes[0]);
+    
     let checkMark = document.createElement("i");
     checkMark.className = "fa fa-check check-mark";
     checkMark.id = "check-mark"
@@ -66,9 +160,15 @@ function completed(element) {
 }
 function redo(element) {
     let elementContainer = element.parentNode.parentNode;
+    // elementContainer.childNodes[2].className = "edit-task-show";
+    // document.getElementById("edit-task-div").addEventListener('click', editTask);
     let container = document.getElementById("container");
+    let editIcon = document.createElement("i");
+    editIcon.className = "fa fa-pencil trash-align";
+    elementContainer.childNodes[2].appendChild(editIcon);
     container.appendChild(elementContainer);
     element.parentNode.removeChild(element.parentNode.childNodes[1]);
+    eventListeners(editIcon);
     removeMidChild();
 }
 function hideElement(element) {
@@ -92,19 +192,28 @@ function addTask() {
     }
     task.className = "added-task";
     let taskInnerLeft = document.createElement("div");
-    taskInnerLeft.className = "task-height task-left-side-sub";
+    taskInnerLeft.className = "task-left-side-sub";
     let circleCheckBox = document.createElement("input");
     circleCheckBox.setAttribute("type", "checkbox");
     circleCheckBox.setAttribute("class", "checkbox-round");
     circleCheckBox.setAttribute("onchange", "completedTask(this)");
     taskInnerLeft.appendChild(circleCheckBox);
     let taskInnerMiddle = document.createElement("div");
-    taskInnerMiddle.className = "task-height task-right-side-sub";
-    let taskName = document.createElement("p");
-    let node = document.createTextNode(addedTask);
+    taskInnerMiddle.className = "task-right-side-sub";
+    let taskName = document.createElement("input");
+    taskName.id = "task-name";
+    taskName.disabled = "true";
+    // let node = document.createTextNode(addedTask);
     taskName.className = "task-value-align";
-    taskName.appendChild(node);
+    taskName.value = addedTask;
     taskInnerMiddle.appendChild(taskName);
+    let editIconDiv = document.createElement("div");
+    editIconDiv.id = "edit-task-div";
+    editIconDiv.className = "edit-task-show";
+    // editIconDiv.setAttribute("onclick", "editTask(this)");
+    let editIcon = document.createElement("i");
+    editIcon.className = "fa fa-pencil trash-align";
+    editIconDiv.appendChild(editIcon);
     let taskInnerRight = document.createElement("div");
     taskInnerRight.className = "add-task-sub";
     taskInnerRight.id = "remove-task";
@@ -114,7 +223,10 @@ function addTask() {
     taskInnerRight.setAttribute("onclick", "removeTask(this)");
     task.appendChild(taskInnerLeft);
     task.appendChild(taskInnerMiddle);
+    task.appendChild(editIconDiv);
     task.appendChild(taskInnerRight);
     taskContainer.appendChild(task);
     document.getElementById("task-value").value = "";
+    eventListeners(editIcon);
+    // document.getElementById("edit-task-div").addEventListener('click', editTask);
 }
