@@ -1,4 +1,7 @@
 let toggleIcon;
+window.addEventListener('load', function() {
+    toggleIcon = "saved";
+});
 document.getElementById("task-value").addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
         addTask();
@@ -43,7 +46,7 @@ function editFunc(element) {
     });
 }
 function saveFunc(element) {
-    toggleIcon = "onSave";
+    toggleIcon = "saved";
     let editDiv = element.parentNode;
     let editIcon = document.createElement("i");
     let editedTaskElement = editDiv.previousSibling.childNodes[0];
@@ -59,8 +62,7 @@ function saveFunc(element) {
     editDiv.appendChild(editIcon);
     eventListeners(editIcon);
 }
-function customPopup(value) {
-    let boolean;
+function customPopup(element, value) {
     let popupDiv = document.createElement("div");
     popupDiv.className = "popup";
     let popupMessage = document.createElement("div");
@@ -85,11 +87,15 @@ function customPopup(value) {
     popupDiv.appendChild(popupMessage);
     popupDiv.appendChild(bottomDiv);
     document.body.appendChild(popupDiv);
+    okButton.addEventListener('click', () => {
+        popupDiv.remove();
+        removeTask(element);
+    });
+    cancelButton.addEventListener('click', function() {
+        popupDiv.remove();
+    });
 }
 function removeTask(element) {
-    if (customPopup("Did you want to delete the task....!")) {
-        return false;
-    }
     element.parentNode.parentNode.removeChild(element.parentNode);
     removeMidChild();
 }
@@ -220,7 +226,7 @@ function addTask() {
     let trashIcon = document.createElement("i");
     trashIcon.className = "fa fa-trash trash-align";
     taskInnerRight.appendChild(trashIcon);
-    taskInnerRight.setAttribute("onclick", "removeTask(this)");
+    taskInnerRight.setAttribute("onclick", "customPopup(this, 'Do you want to delete the task....!')");
     task.appendChild(taskInnerLeft);
     task.appendChild(taskInnerMiddle);
     task.appendChild(editIconDiv);
