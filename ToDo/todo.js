@@ -1,5 +1,7 @@
 let toggleIcon;
+const taskUrl = 'http://localhost:8080/api/v1/task';
 window.addEventListener('load', function() {
+    showTasks();
     toggleIcon = "saved";
 });
 document.getElementById("task-value").addEventListener("keydown", function(event) {
@@ -17,25 +19,15 @@ function removeEventListeners(element) {
         editTask(element);
     });
 }
-// function editTask(element) {
-//     // let element = document.getElementById("edit-task-div");
-//     count++;
-//     if (count % 2 != 0) {
-//         editFunc(element);
-//     } else {
-//         saveFunc(element);
-//     }
-// }
 function editFunc(element) {
     let editDiv = element.parentNode;
+    let saveIcon = document.createElement("i");
     if (toggleIcon == "onEdit") {
         alert("Please save the task....!");
         console.log(editDiv.previousSibling.childNodes[0]);
         return false;
     }
     toggleIcon = "onEdit";
-    console.log(element.parentNode.parentNode);
-    let saveIcon = document.createElement("i");
     editDiv.previousSibling.childNodes[0].disabled = false;
     saveIcon.className = "fa fa-floppy-o trash-align";
     editDiv.removeChild(editDiv.childNodes[0]);
@@ -64,20 +56,20 @@ function saveFunc(element) {
 }
 function customPopup(element, value) {
     let popupDiv = document.createElement("div");
-    popupDiv.className = "popup";
     let popupMessage = document.createElement("div");
+    let bottomDiv = document.createElement("div");
+    let okButtonDiv = document.createElement("div");
+    let cancelButtonDiv = document.createElement("div");
+    let okButton = document.createElement("button");
+    let cancelButton = document.createElement("button");
+    popupDiv.className = "popup";
     popupMessage.className = "popup-message";
     popupMessage.innerText = value;
-    let bottomDiv = document.createElement("div");
     bottomDiv.className = "bottom-div";
-    let okButtonDiv = document.createElement("div");
     okButtonDiv.className = "ok-button-div";
-    let cancelButtonDiv = document.createElement("div");
     cancelButtonDiv.className = "cancel-button-div";
-    let okButton = document.createElement("button");
     okButton.innerText = "ok";
     okButton.className = "ok-button";
-    let cancelButton = document.createElement("button");
     cancelButton.innerText = "cancel";
     cancelButton.className = "cancel-button";
     okButtonDiv.appendChild(okButton);
@@ -109,65 +101,59 @@ function completedTask(element) {
 function midDiv() {
     let completedElementCount = document.getElementById("container-two").childElementCount;
     let containerMiddle = document.getElementById("container-middle");
+    let middleLeftSide = document.createElement("div");
+    let downArrow = document.createElement("i");
+    let dropDownCheckbox = document.createElement("input");
+    let middleDiv = document.createElement("div");
+    let middleRightSide = document.createElement("div");
     if (completedElementCount == 1) {
-        let middleLeftSide = document.createElement("div");
         middleLeftSide.className = "mid-left-side";
-        let downArrow = document.createElement("i");
         downArrow.id = "down-arrow";
         downArrow.className = "fa fa-angle-down";
-        let dropDownCheckbox = document.createElement("input");
         dropDownCheckbox.id = "check-box";
         dropDownCheckbox.type = "checkbox";
         dropDownCheckbox.setAttribute("onchange", "hideElement(this)");
         middleLeftSide.appendChild(downArrow);
         middleLeftSide.appendChild(dropDownCheckbox);
-        let middleDiv = document.createElement("div");
         middleDiv.className = "mid-div";
         middleDiv.innerText = "Completed";
-        let middleRightSide = document.createElement("div");
         middleRightSide.id = "mid-right-side";
         middleRightSide.className = "mid-right-side";
-        // middleRightSide.innerText = completedElementCount;
         containerMiddle.appendChild(middleLeftSide);
         containerMiddle.appendChild(middleDiv);
         containerMiddle.appendChild(middleRightSide);
-        // let dropDownIcon = document.createElement("i");
-        // dropDownIcon.className = 
     }
     document.getElementById("mid-right-side").innerText = completedElementCount;
 }
 function removeMidChild() {
     let completedElementCount = document.getElementById("container-two").childElementCount;
+    let containerMiddle = document.getElementById("container-middle");
     console.log(completedElementCount);
     if (completedElementCount == 0) {
-        let containerMiddle = document.getElementById("container-middle");
         containerMiddle.innerHTML = '';
     }
     document.getElementById("mid-right-side").innerText = completedElementCount;
 }
 function completed(element) {
+    let elementContainer = element.parentNode.parentNode;
+    let elementDiv = element.parentNode;
+    let checkMark = document.createElement("i");
+    let container = document.getElementById("container-two");
+    elementDiv.appendChild(checkMark);
     if (toggleIcon == "onEdit") {
         alert("Please save the task....!");
         element.checked = false;
         return false;
     }
-    let elementContainer = element.parentNode.parentNode;
-    let elementDiv = element.parentNode;
     // elementContainer.childNodes[2].className = "edit-task-hide";
     elementContainer.childNodes[2].removeChild(elementContainer.childNodes[2].childNodes[0]);
-    
-    let checkMark = document.createElement("i");
     checkMark.className = "fa fa-check check-mark";
     checkMark.id = "check-mark"
-    elementDiv.appendChild(checkMark);
-    let container = document.getElementById("container-two");
     container.appendChild(elementContainer);
     midDiv();
 }
 function redo(element) {
     let elementContainer = element.parentNode.parentNode;
-    // elementContainer.childNodes[2].className = "edit-task-show";
-    // document.getElementById("edit-task-div").addEventListener('click', editTask);
     let container = document.getElementById("container");
     let editIcon = document.createElement("i");
     editIcon.className = "fa fa-pencil trash-align";
@@ -189,50 +175,74 @@ function hideElement(element) {
     }
 }
 function addTask() {
-    let taskContainer = document.getElementById("container");
-    let task = document.createElement("div");
-    let addedTask = document.getElementById("task-value").value;
-    if (addedTask == "") {
+    let addedTask = { taskName : document.getElementById("task-value").value};
+    if (addedTask.taskName == "") {
         alert("Please add the task...!");
         return false;
     }
-    task.className = "added-task";
-    let taskInnerLeft = document.createElement("div");
-    taskInnerLeft.className = "task-left-side-sub";
-    let circleCheckBox = document.createElement("input");
-    circleCheckBox.setAttribute("type", "checkbox");
-    circleCheckBox.setAttribute("class", "checkbox-round");
-    circleCheckBox.setAttribute("onchange", "completedTask(this)");
-    taskInnerLeft.appendChild(circleCheckBox);
-    let taskInnerMiddle = document.createElement("div");
-    taskInnerMiddle.className = "task-right-side-sub";
-    let taskName = document.createElement("input");
-    taskName.id = "task-name";
-    taskName.disabled = "true";
-    // let node = document.createTextNode(addedTask);
-    taskName.className = "task-value-align";
-    taskName.value = addedTask;
-    taskInnerMiddle.appendChild(taskName);
-    let editIconDiv = document.createElement("div");
-    editIconDiv.id = "edit-task-div";
-    editIconDiv.className = "edit-task-show";
-    // editIconDiv.setAttribute("onclick", "editTask(this)");
-    let editIcon = document.createElement("i");
-    editIcon.className = "fa fa-pencil trash-align";
-    editIconDiv.appendChild(editIcon);
-    let taskInnerRight = document.createElement("div");
-    taskInnerRight.className = "add-task-sub";
-    taskInnerRight.id = "remove-task";
-    let trashIcon = document.createElement("i");
-    trashIcon.className = "fa fa-trash trash-align";
-    taskInnerRight.appendChild(trashIcon);
-    taskInnerRight.setAttribute("onclick", "customPopup(this, 'Do you want to delete the task....!')");
-    task.appendChild(taskInnerLeft);
-    task.appendChild(taskInnerMiddle);
-    task.appendChild(editIconDiv);
-    task.appendChild(taskInnerRight);
-    taskContainer.appendChild(task);
+    postTask(addedTask).then(data => console.log("success", data)).catch(error => console.log("Error:", error));
     document.getElementById("task-value").value = "";
-    eventListeners(editIcon);
-    // document.getElementById("edit-task-div").addEventListener('click', editTask);
+    showTasks();
+}
+function showTasks() {
+    getTasks().then(function(result) {
+        for (let i of result) {
+            let taskContainer = document.getElementById("container");
+            let task = document.createElement("div");
+            let taskInnerLeft = document.createElement("div");
+            let circleCheckBox = document.createElement("input");
+            let taskInnerMiddle = document.createElement("div");
+            let taskValue = document.createElement("input");
+            let editIconDiv = document.createElement("div");
+            let editIcon = document.createElement("i");
+            let taskInnerRight = document.createElement("div");
+            let trashIcon = document.createElement("i");
+            task.className = "added-task";
+            taskInnerLeft.className = "task-left-side-sub";
+            circleCheckBox.setAttribute("type", "checkbox");
+            circleCheckBox.setAttribute("class", "checkbox-round");
+            circleCheckBox.setAttribute("onchange", "completedTask(this)");
+            taskInnerLeft.appendChild(circleCheckBox);
+            taskInnerMiddle.className = "task-right-side-sub";
+            taskValue.id = "task-name";
+            taskValue.disabled = "true";
+            taskValue.className = "task-value-align";
+            taskValue.value = i.taskName;
+            taskInnerMiddle.appendChild(taskValue);
+            editIconDiv.id = "edit-task-div";
+            editIconDiv.className = "edit-task-show";
+            editIcon.className = "fa fa-pencil trash-align";
+            editIconDiv.appendChild(editIcon);
+            taskInnerRight.className = "add-task-sub";
+            taskInnerRight.id = "remove-task";
+            trashIcon.className = "fa fa-trash trash-align";
+            taskInnerRight.appendChild(trashIcon);
+            taskInnerRight.setAttribute("onclick", "customPopup(this, 'Do you want to delete the task....!')");
+            task.appendChild(taskInnerLeft);
+            task.appendChild(taskInnerMiddle);
+            task.appendChild(editIconDiv);
+            task.appendChild(taskInnerRight);
+            taskContainer.appendChild(task);
+            eventListeners(editIcon);
+        }
+    });
+}
+function addedTasks(value) {
+}
+async function postTask(data) {
+    const response = await fetch(taskUrl, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+    return response.json();
+}
+async function getTasks() {
+    const response = await fetch(taskUrl, {
+        method: "GET",
+    });
+    // console.log(response.json())
+    return response.json();
 }
