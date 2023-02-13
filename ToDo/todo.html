@@ -14,42 +14,54 @@
             integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
             crossorigin="anonymous"
             referrerpolicy="no-referrer"/>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@700&display=swap" rel="stylesheet">
     <!-- <script src = "todo.js"></script> -->
     <title>Document</title>
 </head>
 <body>
-    <div class = "menu-bar">
-        <div class = "menu-bar-one" title = "app launcher">
-            <button class = "menu-bar-button">
-                <span class="material-symbols-outlined apps">
+    <div class = "full-container">
+        <div class = "menu-bar">
+            <div class = "menu-bar-one" title = "app launcher">
+                <span class="material-symbols-outlined">
                     apps
                 </span>
-            </button>
+            </div>
+            <div class = "menu-bar-two">
+                <p class = "todo">To Do</p>
+            </div>
+            <div id = "search-bar-div-id" class = "menu-bar-three">
+                <span class="material-symbols-outlined">search</span>
+                <!-- <div id = "search-bar-id" class = "search-bar"></div> -->
+            </div>
         </div>
-        <button class = "todo-button">
-            <p class = "todo">To Do</p>
-        </button>
-        <button class = "search-bar" title = "Search"></button>
-        <span class="material-symbols-outlined search-icon">search</span>
-    </div>
-    <div class = "left-division"></div>
-    <div class = "main-division">
-        <div class = "task-height task-left-side">
-            <i class="fa fa-circle-thin circle-checkbox" aria-hidden="true"></i>
+        <div class = "main-body">
+            <div class = "main-body-left"></div>
+            <div class = "main-body-right">
+                <div class = "main-body-right-top"></div>
+                <div class = "all-task-div">
+                    <div class = "add-task-div">
+                        <div class = "add-task-div-inner">
+                            <div class = "add-task-div-inner-left">
+                                <i class="fa fa-circle-thin"></i>
+                            </div>
+                            <div class = "add-task-div-inner-middle">
+                                <input id = "task-value" class = "text-box-one" type="text" placeholder = "Add a task">
+                            </div>
+                            <div class = "add-task-div-inner-right" onclick = "addTask()"><p class = "add-center">Add</p></div>
+                        </div>
+                    </div>
+                    <div class = "added-task-div">
+                        <div class = "task-todo">
+                            <div id = "container" class = "added-tasks-container"></div>
+                            <div id = "container-middle" class = "added-tasks-container-middle"></div>
+                            <div id = "container-two" class = "added-tasks-container-two"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class = "task-height task-right-side">
-            <input id = "task-value" class = "text-box-one" type="text" placeholder = "Add a task">
-        </div>
-        <div class = "task-height add-task" onclick = "addTask()"><p class = "add-center">Add</p></div>
-    </div>
-    <div id = "container" class = "added-tasks-container">
-        
-    </div>
-    <div id = "container-middle" class = "added-tasks-container-middle">
-
-    </div>
-    <div id = "container-two" class = "added-tasks-container-two">
-        
     </div>
     <script src = "todo.js"></script>
 </body>
