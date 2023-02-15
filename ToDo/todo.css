@@ -191,7 +191,7 @@ html, body {
     overflow: auto;
 }
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 5px;
 }
 ::-webkit-scrollbar-track {
     background: #ededed;
@@ -201,7 +201,85 @@ html, body {
     border-radius: 5px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: rgb(39 82 203);
+    background: #bababa;
+}
+
+.searched-task-container {
+    background-color: #f6f6f6;
+    position: fixed;
+    top: 8%;
+    left: 22.6%;
+    height: 92%;
+    width: 77.37%;
+}
+.searched-task-container-top {
+    /* background-color: beige; */
+    position: relative;
+    height: 17.8%;
+}
+.searched-task-container-middle {
+    position: relative;
+    /* background-color: brown; */
+    height: 12%;
+}
+.searched-navigate-container {
+    /* background-color: rgb(255, 176, 72); */
+    height: 75%;
+    position: relative;
+    top: 25%;
+    cursor: pointer;
+}
+.searched-navigate-container > div {
+    display: inline-block;
+}
+.navigate-icon-container {
+    /* background-color: aqua; */
+    height: 100%;
+    width: 5%;
+    margin-left: 2.3%;
+}
+.navigate-icon-container > i {
+    margin: 32% 0% 0% 40%;
+    font-size: x-large;
+}
+.navigate-text-container {
+    /* background-color: cadetblue; */
+    position: absolute;
+    height: 100%;
+    width: 5%;
+    font-size: 85%;
+    font-family: 'Poppins', sans-serif;
+    padding-top: 1.8%;
+}
+.navigate-count-container {
+    /* background-color: darkorchid; */
+    height: 100%;
+    width: 5%;
+    font-family: 'Poppins', sans-serif;
+    padding-top: 1.6%;
+    position: absolute;
+    margin-left: 5%;
+}
+.searched-task-container-bottom {
+    position: relative;
+    /* background-color: chartreuse; */
+    min-height: 0%;
+    width: 95.4%;
+    margin: 1.35% 0% 0% 2.3%;
+}
+.searched-task-container-bottom-outer-show {
+    position: relative;
+    /* background-color: #bababa; */
+    height: 70.2%;
+    overflow: auto;
+}
+.searched-task-container-bottom-outer-hide {
+    position: relative;
+    /* background-color: #bababa; */
+    height: 0;
+    overflow: auto;
+    contain: content;
+    border: 1px solid gainsboro;
 }
 
 
