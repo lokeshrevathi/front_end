@@ -1,6 +1,8 @@
 let toggleIcon;
 let checkedToggleicon;
 let searchContainerShow;
+let mainContainerFull;
+let currentUser;
 const taskUrl = 'http://localhost:8080/api/v1/task/';
 const completedUrl = 'http://localhost:8080/api/v1/task/completed/';
 const searchedTaskUrl = 'http://localhost:8080/api/v1/task';
@@ -9,12 +11,16 @@ const putMethod = 'PUT';
 let searchContainerConunt;
 const searchBar = document.getElementById("search-bar-id");
 window.addEventListener('load', function() {
-    showTasks();
-    showCompletedTask();
-    disableSearchBar();
+    indexpage();
+    // showTasks();
+    // showCompletedTask();
+    // disableSearchBar();
+    // maniMenuIcon();
+    // showProfileIcon();
     toggleIcon = "saved";
     searchContainerConunt = 0;
     searchContainerShow = true;
+    mainContainerFull = false;
 });
 document.getElementById("task-value").addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
@@ -100,6 +106,8 @@ function saveFunc(element, value) {
     let editDiv = element.parentNode;
     let oldvalue = value.taskName;
     value.taskName = editDiv.previousSibling.childNodes[0].value;
+    value.userDTO = currentUser;
+    console.log(value);
     if (oldvalue != value.taskName) {
         postTask(value, "PUT").then(data => console.log("success", data)).catch(error => console.log("Error:", error));
     }
@@ -260,7 +268,10 @@ function hideElement(element) {
     }
 }
 function addTask() {
-    let addedTask = { taskName : document.getElementById("task-value").value};
+    let addedTask = { 
+        taskName : document.getElementById("task-value").value,
+        userDTO : currentUser
+    };
     if (addedTask.taskName == "") {
         alert("Please add the task...!");
         return false;
@@ -271,16 +282,16 @@ function addTask() {
     }).catch(error => console.log("Error:", error));
     document.getElementById("task-value").value = "";
 }
-function showTasks() {
-    getTasks(taskUrl).then(function(result) {
+function showTasks(user) {
+    getTasks('http://localhost:8080/api/v1/task/' + user.id).then(function(result) {
         console.log(result);
         for (let i of result) {
             createTaskDiv(i, "redo");
         }
     });
 }
-function showCompletedTask() {
-    getTasks(completedUrl).then(function(result) {
+function showCompletedTask(user) {
+    getTasks('http://localhost:8080/api/v1/task/completed/' + user.id).then(function(result) {
         for (let i of result) {
             createCompletedTaskDiv(i, "completed");
         }
@@ -468,4 +479,193 @@ function hideSearchContainer(container, icon) {
         container.className = "searched-task-container-bottom-outer-hide";
         icon.style.transform = "rotate(-90deg)";
     }
+}
+function maniMenuIcon() {
+    let leftDiv = document.getElementById("main-left-div");
+    let menuIconDiv = document.createElement("div");
+    let menuIcon = document.createElement("span");
+    menuIcon.className = "material-symbols-outlined";
+    menuIcon.innerText = "menu";
+    menuIconDiv.className = "menu-icon-div";
+    menuIconDiv.appendChild(menuIcon);
+    leftDiv.appendChild(menuIconDiv);
+    menuIcon.addEventListener('click', () => {
+        mainContainerFull = !mainContainerFull;
+        mainContainerAlignFull(leftDiv, leftDiv.nextElementSibling);
+    });
+}
+function mainContainerAlignFull(left, right) {
+    if (mainContainerFull) {
+        right.className = "main-body-right-full";
+        left.className = "main-body-left-hide";
+    } else {
+        left.className = "main-body-left-show";
+        right.className = "main-body-right-normal";
+    }
+}
+function showProfileIcon() {
+    let menuBar = document.getElementById("menu-bar");
+    let profileIconDiv = document.createElement("div");
+    let profileIcon = document.createElement("span");
+    profileIcon.className = "material-symbols-outlined";
+    profileIcon.innerText = "account_circle";
+    profileIconDiv.className = "profile-icon-div";
+    profileIconDiv.appendChild(profileIcon);
+    menuBar.appendChild(profileIconDiv);
+}
+function indexpage() {
+    let indexBody = document.createElement("div");
+    let startedButton = document.createElement("button");
+    indexBody.className = "index-body";
+    startedButton.className = "start-button";
+    startedButton.innerText = "get Started";
+    indexBody.appendChild(startedButton);
+    document.body.appendChild(indexBody);
+    startedButton.addEventListener('click', () => {
+        startedButton.remove();
+        signingDiv(indexBody);
+    });
+}
+function signingDiv(element) {
+    let signingDiv = document.createElement("div");
+    let signUpButton = document.createElement("button");
+    let signInButton = document.createElement("button");
+    signUpButton.className = "sign-in-button";
+    signUpButton.innerText = "Sign Up";
+    signInButton.className = "sign-up-button";
+    signInButton.innerText = "Sign In";
+    signingDiv.className = "signing-div";
+    signingDiv.appendChild(signUpButton);
+    signingDiv.appendChild(signInButton);
+    element.appendChild(signingDiv);
+    signUpButton.addEventListener('click', () => {
+        signingDiv.remove();
+        createUser(element);
+    });
+    signInButton.addEventListener('click', () => {
+        signingDiv.remove();
+        signIn(element);
+    })
+}
+function createUser(element) {
+    let createAccountDiv = document.createElement("div");
+    let text = document.createElement("p");
+    let userNameDiv = document.createElement("div");
+    let userNameLabel = document.createElement("label");
+    let userNameInput = document.createElement("input");
+    let mailIdDiv = document.createElement("div");
+    let mailIdLabel = document.createElement("label");
+    let mailIdInput = document.createElement("input");
+    let passwordDiv = document.createElement("div");
+    let passwordLabel = document.createElement("label");
+    let passwordInput = document.createElement("input");
+    let submitAccount = document.createElement("button");
+    userNameLabel.innerText = "User Name";
+    mailIdLabel.innerText = "Mail Id";
+    passwordLabel.innerText = "Password";
+    createAccountDiv.className = "create-account-div";
+    text.className = "create-account-text";
+    text.innerText = "Create Account";
+    userNameDiv.className = "user-name-div";
+    mailIdDiv.className = "mail-id-div";
+    passwordDiv.className = "password-div";
+    userNameInput.className = "user-name-input";
+    mailIdInput.className = "mail-id-input";
+    mailIdInput.type = "email";
+    passwordInput.className = "password-input";
+    passwordInput.type = "password";
+    submitAccount.innerText = "Sign up";
+    createAccountDiv.appendChild(text);
+    userNameDiv.appendChild(userNameLabel);
+    userNameDiv.appendChild(userNameInput);
+    createAccountDiv.appendChild(userNameDiv);
+    mailIdDiv.appendChild(mailIdLabel);
+    mailIdDiv.appendChild(mailIdInput);
+    createAccountDiv.appendChild(mailIdDiv);
+    passwordDiv.appendChild(passwordLabel);
+    passwordDiv.appendChild(passwordInput);
+    createAccountDiv.appendChild(passwordDiv);
+    createAccountDiv.appendChild(submitAccount);
+    element.appendChild(createAccountDiv);
+    submitAccount.addEventListener('click', () => {
+        alert("Account created successflly...!");
+        createAccountDiv.remove();
+        user = {
+            name : userNameInput.value,
+            mailId : mailIdInput.value,
+            password : passwordInput.value,
+            tasks : []
+        };
+        console.log(user);
+        addUser(user, "POST", "http://localhost:8080/api/v1/user/")
+        .then(data => console.log("success", data))
+        .catch(error => console.log("Error:", error));
+        signingDiv(element);
+    });
+}
+function signIn(element) {
+    let signInDiv = document.createElement("div");
+    let text = document.createElement("p");
+    let mailIdDiv = document.createElement("div");
+    let mailIdLabel = document.createElement("label");
+    let mailIdInput = document.createElement("input");
+    let passwordDiv = document.createElement("div");
+    let passwordLabel = document.createElement("label");
+    let passwordInput = document.createElement("input");
+    let submit = document.createElement("button");
+    signInDiv.className = "sign-in-div";
+    text.innerText = "Sign In";
+    text.className = "sign-in-text";
+    mailIdLabel.innerText = "Mail Id";
+    passwordLabel.innerText = "Password";
+    mailIdDiv.className = "mail-id-div";
+    mailIdInput.className = "mail-id-input";
+    mailIdInput.type = "email";
+    passwordDiv.className = "password-div";
+    passwordInput.className = "password-input";
+    passwordInput.type = "password";
+    submit.innerText = "Sign In";
+    passwordDiv.appendChild(passwordInput);
+    signInDiv.appendChild(text);
+    mailIdDiv.appendChild(mailIdLabel);
+    mailIdDiv.appendChild(mailIdInput);
+    signInDiv.appendChild(mailIdDiv);
+    passwordDiv.appendChild(passwordLabel);
+    passwordDiv.appendChild(passwordInput);
+    signInDiv.appendChild(passwordDiv);
+    signInDiv.appendChild(submit);
+    element.appendChild(signInDiv);
+    submit.addEventListener('click', () => {
+        signInTodo(mailIdInput.value, passwordInput.value).then(response => {
+            if (200 == response.status) {
+                element.remove();
+                response.json().then(user => {
+                    currentUser = user;
+                    showTasks(user);
+                })
+                // showTasks();
+                // showCompletedTask();
+                disableSearchBar();
+                maniMenuIcon();
+                showProfileIcon();
+            } else {
+                alert("incorrect mail id or password....!")
+            }
+        });
+    });
+}
+async function signInTodo(mailId, password) {
+    let url = 'http://localhost:8080/api/v1/user/mail-id/' + mailId + '/password/' + password;
+    const response = await fetch(url);
+    return response;
+}
+async function addUser(data, methods, url) {
+    const response = await fetch(url, {
+        method: methods,
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+    return response.json();
 }

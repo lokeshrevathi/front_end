@@ -22,7 +22,7 @@
 </head>
 <body>
     <div class = "full-container">
-        <div class = "menu-bar">
+        <div id = "menu-bar" class = "menu-bar">
             <div class = "menu-bar-one" title = "app launcher">
                 <span class="material-symbols-outlined">
                     apps
@@ -37,8 +37,8 @@
             </div>
         </div>
         <div class = "main-body">
-            <div class = "main-body-left"></div>
-            <div class = "main-body-right">
+            <div id = "main-left-div" class = "main-body-left-show"></div>
+            <div class = "main-body-right-normal">
                 <div class = "main-body-right-top"></div>
                 <div class = "all-task-div">
                     <div class = "add-task-div">
@@ -49,7 +49,7 @@
                             <div class = "add-task-div-inner-middle">
                                 <input id = "task-value" class = "text-box-one" type="text" placeholder = "Add a task">
                             </div>
-                            <div class = "add-task-div-inner-right" onclick = "addTask()"><p class = "add-center">Add</p></div>
+                            <div class = "add-task-div-inner-right" onclick = "addTask()"><span class = "material-symbols-outlined add-center">Add_task</span></div>
                         </div>
                     </div>
                     <div class = "added-task-div">
