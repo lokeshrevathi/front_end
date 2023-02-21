@@ -3,6 +3,7 @@ let checkedToggleicon;
 let searchContainerShow;
 let mainContainerFull;
 let currentUser;
+let closeSignOutDiv;
 const taskUrl = 'http://localhost:8080/api/v1/task/';
 const completedUrl = 'http://localhost:8080/api/v1/task/completed/';
 const searchedTaskUrl = 'http://localhost:8080/api/v1/task';
@@ -11,17 +12,35 @@ const putMethod = 'PUT';
 let searchContainerConunt;
 const searchBar = document.getElementById("search-bar-id");
 window.addEventListener('load', function() {
-    indexpage();
-    // showTasks();
-    // showCompletedTask();
-    // disableSearchBar();
-    // maniMenuIcon();
-    // showProfileIcon();
+    toRedirect();
+    // toggleIcon = "saved";
+    // searchContainerConunt = 0;
+    // searchContainerShow = true;
+    // mainContainerFull = false;
+    // closeSignOutDiv = true;
+
+});
+function toRedirect() {
+    getSignedInUser().then(response => {
+        if (200 == response.status) {
+            response.json().then(user => {
+                currentUser = user;
+                showTasks(user);
+                showCompletedTask(user);
+            });
+            disableSearchBar();
+            maniMenuIcon();
+            showProfileIcon();
+        } else {
+            indexpage();
+        }
+    });
     toggleIcon = "saved";
     searchContainerConunt = 0;
     searchContainerShow = true;
     mainContainerFull = false;
-});
+    closeSignOutDiv = true;
+}
 document.getElementById("task-value").addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
         addTask();
@@ -106,7 +125,6 @@ function saveFunc(element, value) {
     let editDiv = element.parentNode;
     let oldvalue = value.taskName;
     value.taskName = editDiv.previousSibling.childNodes[0].value;
-    value.userDTO = currentUser;
     console.log(value);
     if (oldvalue != value.taskName) {
         postTask(value, "PUT").then(data => console.log("success", data)).catch(error => console.log("Error:", error));
@@ -127,7 +145,7 @@ function saveFunc(element, value) {
         editFunc(editIcon, value);
     });
 }
-function customPopup(element, value, taskStatus) {
+function customPopup(element, value, taskStatus, obj) {
     console.log(element);
     let popupDiv = document.createElement("div");
     let popupMessage = document.createElement("div");
@@ -155,22 +173,23 @@ function customPopup(element, value, taskStatus) {
     document.body.appendChild(popupDiv);
     okButton.addEventListener('click', () => {
         popupDiv.remove();
-        removeTask(element, taskStatus);
+        removeTask(element, taskStatus, obj);
     });
     cancelButton.addEventListener('click', function() {
         popupDiv.remove();
     });
 }
-function removeTask(element, taskStatus) {
+function removeTask(element, taskStatus, value) {
     let tasks = Array.from(element.parentNode.parentNode.childNodes);
-    let position = tasks.indexOf(element.parentNode);
-    let url = (taskStatus == "redo") ? taskUrl : completedUrl;
-    getTasks(url).then(taskList => {
-        let taskObj = taskList[position];
-        taskObj.deleted = true;
-        postTask(taskObj, "PUT").then(data => console.log("success", data)).catch(error => console.log("Error:", error));
+    console.log(value);
+    value.deleted = true;
+    postTask(value, "PUT").then(data => console.log("success", data)).catch(error => console.log("Error:", error));
+    // getTasks(url).then(taskList => {
+    //     let taskObj = taskList[position];
+    //     taskObj.deleted = true;
+    //     postTask(taskObj, "PUT").then(data => console.log("success", data)).catch(error => console.log("Error:", error));
 
-    })
+    // });
     element.parentElement.remove();
     removeMidChild();
 }
@@ -344,7 +363,7 @@ function createTodoTaskDiv(value, taskStatus) {
     trashIcon.className = "fa fa-trash trash-align";
     taskInnerRight.appendChild(trashIcon);
     taskInnerRight.addEventListener('click', () => {
-        customPopup(taskInnerRight, 'Do you want to delete the task....!', taskStatus)
+        customPopup(taskInnerRight, 'Do you want to delete the task....!', taskStatus, value)
     });
     task.appendChild(taskInnerLeft);
     task.appendChild(taskInnerMiddle);
@@ -385,7 +404,7 @@ function createCompletedTaskDiv(value, taskStatus) {
     trashIcon.className = "fa fa-trash trash-align";
     taskInnerRight.appendChild(trashIcon);
     taskInnerRight.addEventListener('click', () => {
-        customPopup(taskInnerRight, 'Do you want to delete the task....!', taskStatus)
+        customPopup(taskInnerRight, 'Do you want to delete the task....!', taskStatus, value);
     })
     task.appendChild(taskInnerLeft);
     task.appendChild(taskInnerMiddle);
@@ -412,7 +431,7 @@ async function getTasks(url) {
     return  response.json();
 }
 async function getTasksByName(name) {
-    let url = 'http://localhost:8080/api/v1/task?taskName=' + name;
+    let url = 'http://localhost:8080/api/v1/task?id=' + currentUser.id + '&taskName=' + name;
     const response = await fetch(url);
     return response.json();
 }
@@ -435,7 +454,8 @@ function createSearchContainer() {
     searchDiv.appendChild(searchDivMiddle);
     searchDivBottomOuter.appendChild(searchDivBottom);
     searchDiv.appendChild(searchDivBottomOuter);
-    document.body.appendChild(searchDiv);
+    // document.body.appendChild(searchDiv);
+    document.getElementById("mani-body-right-id").appendChild(searchDiv);
     navigateSearchedTasks(searchDivMiddle);
 }
 function showSearchedTasks(value) {
@@ -512,6 +532,53 @@ function showProfileIcon() {
     profileIconDiv.className = "profile-icon-div";
     profileIconDiv.appendChild(profileIcon);
     menuBar.appendChild(profileIconDiv);
+    profileIconDiv.addEventListener('click', () => {
+        closeSignOutDiv = !closeSignOutDiv;
+        if (!closeSignOutDiv) {
+            createSignOut();
+        } else {
+            document.getElementById("sign-out-div").remove();
+        }
+    });
+}
+function createSignOut() {
+    let signOutDiv = document.createElement("div");
+    let topDiv = document.createElement("div");
+    let topLeft = document.createElement("div");
+    let signOutButtonDiv = document.createElement("div");
+    let signOutButton = document.createElement("button");
+    let bottomDiv = document.createElement("div");
+    let bottomLeft = document.createElement("div");
+    let bottomRight = document.createElement("div");
+    signOutDiv.id = "sign-out-div";
+    signOutDiv.className = "sign-out-div";
+    topDiv.className = "sign-out-top-div";
+    topLeft.className = "sign-out-top-left";
+    signOutButtonDiv.className = "sign-out-button-div";
+    signOutButton.className = "sign-out-button";
+    signOutButton.innerText = "Sign out";
+    bottomDiv.className = "sign-out-bottom-div";
+    bottomLeft.className = "sign-out-bottom-left";
+    bottomRight.className = "sign-out-bottom-right";
+    topDiv.appendChild(topLeft);
+    signOutButtonDiv.appendChild(signOutButton);
+    topDiv.appendChild(signOutButtonDiv);
+    signOutDiv.appendChild(topDiv);
+    bottomDiv.appendChild(bottomLeft);
+    bottomDiv.appendChild(bottomRight);
+    signOutDiv.appendChild(bottomDiv);
+    document.body.appendChild(signOutDiv);
+    signOutButton.addEventListener('click', () => {
+        signOutDiv.remove();
+        signOutUser(currentUser.id).then(response => {
+            if (response.status == 200) {
+                document.getElementById("container").innerText = '';
+                document.getElementById("container-middle").innerText = '';
+                document.getElementById("container-two").innerText = '';
+                toRedirect();
+            }
+        });
+    });
 }
 function indexpage() {
     let indexBody = document.createElement("div");
@@ -642,7 +709,8 @@ function signIn(element) {
                 response.json().then(user => {
                     currentUser = user;
                     showTasks(user);
-                })
+                    showCompletedTask(user);
+                });
                 // showTasks();
                 // showCompletedTask();
                 disableSearchBar();
@@ -653,6 +721,18 @@ function signIn(element) {
             }
         });
     });
+}
+async function signOutUser(id) {
+    let url = 'http://localhost:8080/api/v1/user/' + id;
+    const response = await fetch(url, {
+        method: 'PATCH'
+    });
+    return response;
+}
+async function getSignedInUser() {
+    let url = 'http://localhost:8080/api/v1/user/';
+    const response = await fetch(url);
+    return response;
 }
 async function signInTodo(mailId, password) {
     let url = 'http://localhost:8080/api/v1/user/mail-id/' + mailId + '/password/' + password;

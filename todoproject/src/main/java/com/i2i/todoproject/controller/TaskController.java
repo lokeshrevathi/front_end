@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.i2i.todoproject.dto.TaskDTO;
@@ -25,13 +28,35 @@ public class TaskController {
 		this.taskService = taskService;
 	}
 	
-	@PostMapping
+	@PostMapping("/")
 	public TaskDTO addTask(@RequestBody TaskDTO taskDTO) {
 		return taskService.addTask(taskDTO);
 	}
 	
-	@GetMapping
+	@GetMapping("/")
 	public List<TaskDTO> getTasks() {
 		return taskService.getTasks();
+	}
+	
+	@GetMapping("/completed/{id}")
+	public List<TaskDTO> getCompletedTask(@PathVariable("id") int id) {
+		return taskService.getCompletedTaskByUserId(id);
+	}
+	
+	@PutMapping("/")
+	public TaskDTO updateTask(@RequestBody TaskDTO taskDTO) {
+		System.out.println(taskDTO.getTaskName());
+		return taskService.updateTask(taskDTO);
+	}
+	
+	@GetMapping
+	public List<TaskDTO> getTasksByName(@RequestParam("id") int id, @RequestParam("taskName") String taskName) {
+		System.out.println(taskName);
+		return taskService.getTaskByName(id,taskName);
+	}
+	
+	@GetMapping("/{id}")
+	public List<TaskDTO> getTasksByUserId(@PathVariable("id") int id) {
+		return taskService.getTasksByUserId(id);
 	}
 }

@@ -11,4 +11,5 @@ public class TaskDTO {
 	private String taskName;
 	private boolean isDeleted;
 	private boolean isCompleted;
+	private UserDTO userDTO;
 }

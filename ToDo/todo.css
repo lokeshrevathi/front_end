@@ -123,7 +123,7 @@ html, body {
     height: 12%;
 }
 .add-task-div > div {
-    background-color: white;
+    background-color: #fbfbfb;
     position: relative;
     height: 100%;
     width: 95.4%;
@@ -195,11 +195,11 @@ html, body {
 
 .searched-task-container {
     background-color: #f6f6f6;
-    position: fixed;
-    top: 8%;
-    left: 22.6%;
-    height: 92%;
-    width: 77.37%;
+    position: ABSOLUTE;
+    top: 0%;
+    left: 0%;
+    height: 100%;
+    width: 100%;
 }
 .searched-task-container-top {
     /* background-color: beige; */
@@ -478,9 +478,65 @@ html, body {
     cursor: pointer;
     border: 4px double white;
 }
+.sign-out-div {
+    background-color: white;
+    position: fixed;
+    top: 8%;
+    right: 0%;
+    height: 29%;
+    width: 25%;
+    box-shadow: -10px 10px 11px -7px #e7e7e7;
+}
+.sign-out-top-div {
+    /* background-color: #e7e7e7; */
+    height: 31.1%;
+}
+.sign-out-bottom-div {
+    /* background-color: steelblue; */
+    height: 68.9%;
+}
+.sign-out-bottom-div > div {
+    display: inline-block;
+    height: 100%;
+}
+.sign-out-bottom-left {
+    /* background-color: yellow; */
+    width: 39%;
+}
+.sign-out-bottom-right {
+    /* background-color: violet; */
+    width: 61%;
+}
+.sign-out-top-div > div {
+    display: inline-block;
+    height: 100%;
+}
+.sign-out-button-div {
+    /* background-color: RGBA(0, 0, 0, 0.08); */
+    width: 24%;
+    position: relative;
+}
+.sign-out-button {
+    position: absolute;
+    background: none;
+    font-family: 'Poppins', sans-serif;
+    border: none;
+    height: 100%;
+    width: 100%;
+}
+.sign-out-button:hover {
+    background-color: RGBA(0, 0, 0, 0.08);
+    text-decoration: underline;
+    cursor: pointer;
+}
+.sign-out-top-left {
+    /* background-color: #555555; */
+    width: 76%;
+}
 
 
 .text-box-one {
+    background-color: #fbfbfb;
     height: 72%;
     width: 96.5%;
     border: none;
@@ -566,7 +622,7 @@ html, body {
     background-color: blueviolet;
 }
 .added-task {
-    background-color: white;
+    background-color: #fbfbfb;
     height: 15.3%;
     width: 100%;
     margin: 0% 0% 1% 0%;
@@ -575,11 +631,11 @@ html, body {
 }
 .added-task div {
     display: inline-block;
-    padding: 18px 0px 18px 0px;
+    padding: 18px 0px 14px 0px;
 }
 .task-value-align {
     /* position: relative; */
-    background-color: white;
+    background-color: #fbfbfb;
     left: 1.5%;
     margin: 0% 0% 0.2% 1.3%;
     width: 97.9%;
@@ -684,7 +740,7 @@ html, body {
     overflow: auto;
 }
 .edit-task-show {
-    background-color: rgb(255, 255, 255);
+    background-color: #fbfbfb;
     padding: 0% 0% 0.2% 0%;
     width: 6.5%;
     color: rgb(39 82 203);
