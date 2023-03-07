@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "todo-sign-in.css">
+    <title>sign-in</title>
+</head>
+<body>
+    <div class = "container">
+        <div class = "sign-in-box">
+            <div class = "sign-in-text-div">
+                <span>Sign in</span>
+            </div>
+            <div class = "sign-in-form">
+                <form id = "redirect-todo" action="todo1.html"></form>
+                <form id = "sign-in-form-id">
+                    <div class = "mail-id-div">
+                        <div class = "user-name-lable">
+                            <label for="user-name">Mail Id :</label>
+                        </div>
+                        <div>
+                            <input type="email" id="sign-in-mail-id" class = "input-borders" required>
+                        </div>
+                    </div>
+                    <div class = "password-div">
+                        <div class = "user-name-lable">
+                            <label for="user-name">Password :</label>
+                        </div>
+                        <div>
+                            <input type="password" id="sign-in-password" class = "input-borders" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class = "sign-in-button-div">
+                <button form = "sign-in-form-id" id = "sign-in-button">Sign in</button>
+            </div>
+        </div>
+    </div>
+    <script type = "module" src = "todo-sign-in.js"></script>
+</body>
+</html>

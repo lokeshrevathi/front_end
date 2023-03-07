@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "todo-sign-up.css">
+    <title>sign-up</title>
+</head>
+<body>
+    <div class = "container">
+        <div class = "sign-up-box">
+            <div class = "sign-up-text-div">
+                <span>Sign up</span>
+            </div>
+            <div class = "sign-up-form">
+                <form id = "redirect-sign-in" action="todo-sign-in.html"></form>
+                <form id = "sign-up-form-id">
+                    <div class = "user-name-div">
+                        <div class = "user-name-lable">
+                            <label for="user-name">User Name :</label>
+                        </div>
+                        <div>
+                            <input type="text" id = "sign-up-user-name" class = "input-borders" required>
+                        </div>
+                    </div>
+                    <div class = "mail-id-div">
+                        <div class = "user-name-lable">
+                            <label for="user-name">Mail Id :</label>
+                        </div>
+                        <div>
+                            <input type="email" id="sign-up-mail-id" class = "input-borders" required>
+                        </div>
+                    </div>
+                    <div class = "password-div">
+                        <div class = "user-name-lable">
+                            <label for="user-name">Password :</label>
+                        </div>
+                        <div>
+                            <input type="password" id="sign-up-password" class = "input-borders" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class = "sign-up-button-div">
+                <button form = "sign-up-form-id" id = "sign-up-button">Sign up</button>
+            </div>
+        </div>
+    </div>
+    <script type = "module" src = "todo_signup.js"></script>
+</body>
+</html>

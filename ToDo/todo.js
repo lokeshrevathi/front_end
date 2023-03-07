@@ -11,14 +11,26 @@ const postMethod = 'POST';
 const putMethod = 'PUT';
 let searchContainerConunt;
 const searchBar = document.getElementById("search-bar-id");
+const searchBarDivTwo = document.getElementById("search-bar-two-div-id");
+const searchBarClose = document.getElementById("search-bar-close-icon");
+const searchInput = document.getElementById("search-input");
+const profileIconDiv = document.getElementById("profile-icon-div-id");
+let leftDiv = document.getElementById("main-left-div");
+const menuIcon = document.getElementById("menu-icon-id");
+menuIcon.addEventListener('click', () => {
+    mainContainerFull = !mainContainerFull;
+    mainContainerAlignFull(leftDiv, leftDiv.nextElementSibling);
+});
+profileIconDiv.addEventListener('click', () => {
+    closeSignOutDiv = !closeSignOutDiv;
+    if (!closeSignOutDiv) {
+        createSignOut();
+    } else {
+        document.getElementById("sign-out-div").remove();
+    }
+});
 window.addEventListener('load', function() {
     toRedirect();
-    // toggleIcon = "saved";
-    // searchContainerConunt = 0;
-    // searchContainerShow = true;
-    // mainContainerFull = false;
-    // closeSignOutDiv = true;
-
 });
 function toRedirect() {
     getSignedInUser().then(response => {
@@ -28,9 +40,10 @@ function toRedirect() {
                 showTasks(user);
                 showCompletedTask(user);
             });
-            disableSearchBar();
-            maniMenuIcon();
-            showProfileIcon();
+            // disableSearchBar();
+            hideSearchBarTwo();
+            // maniMenuIcon();
+            // showProfileIcon();
         } else {
             indexpage();
         }
@@ -51,39 +64,25 @@ function removeEventListeners(element) {
         editTask(element);
     });
 }
-function disableSearchBar(element) {
-    let searchBarDiv = document.getElementById("search-bar-div-id");
-    if (1 < searchBarDiv.childElementCount) {
-        element.previousSibling.remove();
-        element.remove();
-    }
-    let disabledSearchBar = document.createElement("div");
-    disabledSearchBar.className = "search-bar";
-    searchBarDiv.appendChild(disabledSearchBar);
-    disabledSearchBar.addEventListener('click', () => {
-        enableSearchBar(disabledSearchBar);
-    });
+searchBar.addEventListener('click', () => {
+    showSearchBarTwo();
+});
+searchBarClose.addEventListener('click', () => {
+    hideSearchBarTwo();
+    document.getElementById("searched-task").remove();
+    searchContainerConunt = 0;
+});
+function hideSearchBarTwo() {
+    searchBar.style.display = "block";
+    searchBarDivTwo.style.display = "none";
+    searchBarClose.style.display = "none";
 }
-function enableSearchBar(element) {
-    let searchBarDiv = document.getElementById("search-bar-div-id");
-    element.remove();
-    let searchBar = document.createElement("input");
-    let closeSearchBox = document.createElement("span");
-    searchBar.className = "search-box";
-    searchBar.type = "text";
-    searchBar.placeholder = "Search";
-    closeSearchBox.className = "material-symbols-outlined";
-    closeSearchBox.innerText = "close";
-    element.appendChild(searchBar);
-    searchBarDiv.appendChild(searchBar);
-    searchBarDiv.appendChild(closeSearchBox);
-    searchBar.focus();
-    closeSearchBox.addEventListener('click', () => {
-        disableSearchBar(closeSearchBox);
-        document.getElementById("searched-task").remove();
-        searchContainerConunt = 0;
-    });
-    searchBar.addEventListener('input', () => {
+function showSearchBarTwo() {
+    searchBar.style.display = "none";
+    searchBarDivTwo.style.display = "block";
+    searchBarClose.style.display = "block";
+    searchInput.focus();
+    searchInput.addEventListener('input', () => {
         searchContainerConunt++;
         if (searchContainerConunt == 1) {
             createSearchContainer();
@@ -93,7 +92,7 @@ function enableSearchBar(element) {
         if (0 != sCount) {
             searchDiv.innerHTML = '';
         }
-        showSearchedTasks(searchBar.value);
+        showSearchedTasks(searchInput.value);
     });
 }
 function editFunc(element, value) {
@@ -272,7 +271,6 @@ function redo(element, value, taskStatus) {
     elementContainer.childNodes[0].appendChild(circleCheckBox);
     elementContainer.childNodes[2].appendChild(editIcon);
     container.appendChild(elementContainer);
-    eventListeners(editIcon);
     removeMidChild();
 }
 function hideElement(element) {
@@ -500,20 +498,20 @@ function hideSearchContainer(container, icon) {
         icon.style.transform = "rotate(-90deg)";
     }
 }
-function maniMenuIcon() {
-    let leftDiv = document.getElementById("main-left-div");
-    let menuIconDiv = document.createElement("div");
-    let menuIcon = document.createElement("span");
-    menuIcon.className = "material-symbols-outlined";
-    menuIcon.innerText = "menu";
-    menuIconDiv.className = "menu-icon-div";
-    menuIconDiv.appendChild(menuIcon);
-    leftDiv.appendChild(menuIconDiv);
-    menuIcon.addEventListener('click', () => {
-        mainContainerFull = !mainContainerFull;
-        mainContainerAlignFull(leftDiv, leftDiv.nextElementSibling);
-    });
-}
+// function maniMenuIcon() {
+//     let leftDiv = document.getElementById("main-left-div");
+//     let menuIconDiv = document.createElement("div");
+//     let menuIcon = document.createElement("span");
+//     menuIcon.className = "material-symbols-outlined";
+//     menuIcon.innerText = "menu";
+//     menuIconDiv.className = "menu-icon-div";
+//     menuIconDiv.appendChild(menuIcon);
+//     leftDiv.appendChild(menuIconDiv);
+//     menuIcon.addEventListener('click', () => {
+//         mainContainerFull = !mainContainerFull;
+//         mainContainerAlignFull(leftDiv, leftDiv.nextElementSibling);
+//     });
+// }
 function mainContainerAlignFull(left, right) {
     if (mainContainerFull) {
         right.className = "main-body-right-full";
@@ -523,24 +521,24 @@ function mainContainerAlignFull(left, right) {
         right.className = "main-body-right-normal";
     }
 }
-function showProfileIcon() {
-    let menuBar = document.getElementById("menu-bar");
-    let profileIconDiv = document.createElement("div");
-    let profileIcon = document.createElement("span");
-    profileIcon.className = "material-symbols-outlined";
-    profileIcon.innerText = "account_circle";
-    profileIconDiv.className = "profile-icon-div";
-    profileIconDiv.appendChild(profileIcon);
-    menuBar.appendChild(profileIconDiv);
-    profileIconDiv.addEventListener('click', () => {
-        closeSignOutDiv = !closeSignOutDiv;
-        if (!closeSignOutDiv) {
-            createSignOut();
-        } else {
-            document.getElementById("sign-out-div").remove();
-        }
-    });
-}
+// function showProfileIcon() {
+//     let menuBar = document.getElementById("menu-bar");
+//     let profileIconDiv = document.createElement("div");
+//     let profileIcon = document.createElement("span");
+//     profileIcon.className = "material-symbols-outlined";
+//     profileIcon.innerText = "account_circle";
+//     profileIconDiv.className = "profile-icon-div";
+//     profileIconDiv.appendChild(profileIcon);
+//     menuBar.appendChild(profileIconDiv);
+//     profileIconDiv.addEventListener('click', () => {
+//         closeSignOutDiv = !closeSignOutDiv;
+//         if (!closeSignOutDiv) {
+//             createSignOut();
+//         } else {
+//             document.getElementById("sign-out-div").remove();
+//         }
+//     });
+// }
 function createSignOut() {
     let signOutDiv = document.createElement("div");
     let topDiv = document.createElement("div");

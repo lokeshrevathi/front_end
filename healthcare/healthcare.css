@@ -2,11 +2,52 @@ html, body {
     margin: 0%;
     height: 100%;
 }
-.container {
-    /* background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 80.71%),
-            linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
-            linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
-    height: 100%; */
-    background-image: linear-gradient(218.64deg, #30A3C6 19.33%, #A5F1F5 97.35%);
+.container-one {
     height: 76em;
+    background-color: aqua;
+}
+.header {
+    background-color: blueviolet;
+    height: 6.5%;
+}
+.header-container {
+    background-color: azure;
+    height: 66%;
+    position: relative;
+    top: 34%;
+}
+.header-container > div {
+    display: inline-block;
+    height: 100%;
+}
+.header-container-left {
+    position: relative;
+    background-color: aquamarine;
+    width: 12.1%;
+    margin: 0% 0% 0% 4%;
+}
+.header-container-left > img {
+    position: absolute;
+    height: 82%;
+    margin: -1% 0% 0% 8%;
+}
+.header-container-right {
+    width: 30%;
+    margin: 0% 0% 0% 43%;
+    background-color: bisque;
+}
+.header-container-right > div {
+    background-color: aquamarine;
+    display: inline-block;
+    height: 100%;
+}
+.header-container-right-left {
+    width: 21%;
+}
+.header-container-right-middle {
+    margin: 0% 0% 0% 19%;
+    width: 22%;
+}
+.header-container-right-right {
+
 }

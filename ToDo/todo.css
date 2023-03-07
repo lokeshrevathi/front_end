@@ -8,43 +8,46 @@ html, body {
 }
 .menu-bar {
     background-color: rgb(39 82 203);
-    height: 8%;
+    height: 48px;
+    /* position: relative; */
 }
-.menu-bar > div {
+.menu-bar-inner-one {
+    height: 48px;
+}
+/* .menu-bar > div {
     display: inline-block;
     height: 100%;
-}
+} */
 .menu-bar-one {
     width: 3.8%;
+    text-align: center
     /* background-color: #0dcb99; */
-    position: relative;
+    /* position: absolute; */
 }
 .menu-bar-one > span {
     font-weight: 280;
     color: white;
     font-size: 1.5em;
-    position: absolute;
-    top: 23%;
-    left: 23%;
-    /* transform: translate(46.5%, 46.5%); */
+    margin-top: 11px;
 }
 .menu-bar-one:hover {
     background-color: rgb(41, 76, 172);
     cursor: pointer;
 }
 .menu-bar-two {
-    /* background-color: aquamarine; */
+    background-color: transparent;
     width: 4.83%;
-    margin: 0% 0% 0% -0.3%;
-    position: relative;
-    top: -37%;
+    margin: 0% 0% 0% 3.8%;
+    /* position: absolute; */
     color: white;
 }
-.menu-bar-two > p {
+.menu-bar-two > span {
+    background: transparent;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     font-size: 93%;
-    margin: 24% 0% 0% 13%;
+    margin: 13px 0% 0% 13%;
+    width: 48px;
 }
 .menu-bar-two p:hover {
     text-decoration: underline;
@@ -53,43 +56,56 @@ html, body {
 }
 .menu-bar-three {
     width: 76%;
+    margin: 0% 0% 0% 8.67%;
+    /* position: absolute; */
     /* background-color: aqua; */
-    position: relative;
-    top: -39%;
 }
 .search-bar {
     background-color: white;
-    margin: -2.65% 0% 0% 29.3%;
+    margin: -20px 0px 0px 286px;
     height: 65%;
     width: 41.1%;
     border-radius: 4px;
     padding: 0% 0% 0% 0%;
 }
+.search-bar-div-two {
+    /* position: relative; */
+    background-color: white;
+    margin: -20px 0px 0px 286px;
+    height: 65%;
+    width: 41.1%;
+    border-radius: 4px;
+    padding: 0% 0% 0% 0%;
+}
+.search-bar-div-two:hover {
+    transform: scale(1.005, 1.05);
+    background-color: whitesmoke;
+    cursor: pointer;
+}
 .search-box {
     border: none;
     outline: none;
-    height: 66%;
-    width: 34.3%;
+    height: 100%;
+    width: 83.2%;
     border-radius: 4px;
     /* background-color: aquamarine; */
-    padding: 0% 3.4% 0% 3.4%;
-    margin: 0% 0% 0% 26.4%;
-    position: relative;
-    top: -3%;
+    padding: 0% 8.4% 0% 8.4%;
+    margin: 0% 0% 0% 0%;
+    /* position: absolute; */
 }
 .menu-bar-three > span:last-child {
     font-weight: 200;
     font-size: 1.4em;
-    position: relative;
-    top: 11%;
-    left: -2.6%;
+    /* position: absolute; */
+    top: 12px;
+    left: 660px;
     cursor: pointer;
     color: rgb(39 82 203);
 }
 .menu-bar-three > span:first-child {
-    position: relative;
-    left: 29.6%;
-    top: 13%;
+    /* position: relative; */
+    left: 287.6px;
+    top: 11px;
     transform: rotate(90deg);
     font-weight: 200;
     color: rgb(39 82 203);
@@ -105,6 +121,7 @@ html, body {
     /* background-color: aqua; */
     height: 92%;
     overflow: hidden;
+    position: relative;
 }
 .main-body > div {
     display: inline-block;
@@ -289,11 +306,10 @@ html, body {
     box-shadow: 2px 2px 5px -2px #e7e7e7;
 }
 .main-body-right-normal {
-    /* background-color: blueviolet; */
-    position: relative;
-    top: -3%;
-    width: 77.37%;
-    margin: 0% 0% 0% -0.3%;
+        /* background-color: blueviolet; */
+        position: absolute;
+        width: 77.37%;
+        margin: 0% 0% 0% 0%;
 }
 .main-body-left-hide {
     background-color: white;
@@ -309,16 +325,13 @@ html, body {
 }
 .profile-icon-div {
     /* background-color: gold; */
-    position: relative;
     width: 4%;
-    margin-left: 10.71%;
+    margin-left: 96%;
 }
 .profile-icon-div > span {
     font-size: 2.7em;
     font-weight: 100;
-    position: absolute;
-    top: 7%;
-    left: 9%;
+    margin: 2px 0% 0% 9%;
     color: white;
 }
 .profile-icon-div:hover {
