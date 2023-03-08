@@ -250,6 +250,17 @@ html, body {
     background: #eef7ff;
     cursor: pointer;
 }
+.active::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    background-color: #2564cf;
+    background-color: var(--bg-brand);
+    height: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: expand 0.25s forwards;
+}
 .dynamic-list-div {
     min-height: 0%;
 }
@@ -439,6 +450,7 @@ html, body {
     display: flex;
     flex-direction: column;
     box-shadow: -10px 10px 11px -7px #e7e7e7;
+    z-index: 2;
 }
 .profile-popup-top {
     /* background: brown; */
@@ -500,11 +512,18 @@ html, body {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    cursor: pointer;
+    color: white;
+}
+#profile-popup-circle:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid;
 }
 #profile-popup-circle > span {
     font-size: 3em;
     font-weight: 600;
-    color: white;
+    /* color: white; */
     margin-top: -10px;
 }
 #sign-out-button {
@@ -684,6 +703,14 @@ html, body {
 }
 .added-task-animation {
     animation-name: addedTask;
+    animation-duration: 0.25s;
+}
+@keyframes redoTask {
+    0% {transform: translateY(30px);}
+    100%{transform: translateY(0px);}
+}
+.redo-task-animation {
+    animation-name: redoTask;
     animation-duration: 0.25s;
 }
 .bottom-margin {

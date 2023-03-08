@@ -93,13 +93,11 @@ addTaskbutton.parentNode.childNodes[3].childNodes[1].addEventListener('keydown',
             alert("Please enter the task...!");
             return false;
         }
-        addTask(inputElement.value);
+        addTask(addTaskbutton.parentNode);
     }
 });
-function addTask(value) {
-    let element = addTaskbutton.parentNode;
+function addTask(element) {
     let addTaskDiv = document.getElementById("added-task-div");
-    // element.classList.add("bottom-margin");
     let newTask = element.cloneNode(true);
     newTask.classList.add("bottom-margin");
     let circleIcon = newTask.childNodes[1].childNodes[1];
@@ -111,8 +109,8 @@ function addTask(value) {
     clonedInputElement.disabled = true;
     editIcon.style.visibility = "visible";
     importantIcon.style.visibility = "visible";
-    removeIcon.innerText = "delete";
-    newTask.classList.add("added-task-animation");
+    // removeIcon.innerText = "delete";
+    // newTask.classList.add("added-task-animation");
     console.log(editIcon);
     circleIcon.addEventListener('mouseover', event => {
         circleIcon.innerText = "check_circle";
@@ -120,19 +118,48 @@ function addTask(value) {
             circleIcon.innerText = "circle";
         });
     });
-    addTaskDiv.insertBefore(newTask, addTaskDiv.firstChild);
+    console.log(removeIcon.textContent ,removeIcon.textContent == 'add_task');
+    if (removeIcon.textContent == 'add_task') {
+        newTask.classList.add("added-task-animation");
+        removeIcon.innerText = "delete";
+        addTaskDiv.insertBefore(newTask, addTaskDiv.firstChild);
+    } else {
+        console.log(newTask.classList,newTask.classList.length);
+        if (newTask.classList.item(newTask.classList.length - 1) == "redo-task-animation") {
+            alert("REDO");
+            newTask.classList.remove("redo-task-animation");
+        } else {
+            newTask.classList.remove("added-task-animation");
+        }
+        newTask.classList.add("redo-task-animation");
+        circleIcon.innerText = "circle";
+        addTaskDiv.appendChild(newTask);
+        hideMidElement();
+    }
     circleIcon.addEventListener('click', event => {
-        completeTask(newTask, circleIcon);
-        // completedTask.appendChild(newTask);
-        // hideMidElement();
+        completeTask(newTask);
+        newTask.remove();
     });
-    // addTaskDiv.appendChild(newTask);
     inputElement.value = "";
 }
-function completeTask(completedElement, circleIcon) {
-    // completedTask.appendChild(completedElement);
-    circleIcon.innerText = "check_circle";
-    completedTask.insertBefore(completedElement, completedTask.firstChild);
+function completeTask(completedElement) {
+    let newCompletedElement = completedElement.cloneNode(true);
+    if (newCompletedElement.classList.item(newCompletedElement.classList.length - 1) == "redo-task-animation") {
+        newCompletedElement.classList.remove("redo-task-animation");
+    } else {
+        newCompletedElement.classList.remove("added-task-animation");
+    }
+    newCompletedElement.classList.add("added-task-animation");
+    newCompletedElement.childNodes[5].style.visibility = "hidden";
+    newCompletedElement.childNodes[7].style.visibility = "hidden";
+    completedTask.insertBefore(newCompletedElement, completedTask.firstChild);
+    const tone = new Audio("correct-tone.WAV");
+    tone.play();
+    newCompletedElement.childNodes[1].childNodes[1].addEventListener('click', event => {
+        addTask(newCompletedElement);
+        newCompletedElement.remove();
+        hideMidElement();
+    });
     hideMidElement();
 }
 function hideMidElement() {
